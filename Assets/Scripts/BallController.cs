@@ -6,6 +6,8 @@ public class BallController : MonoBehaviour
 {
     public Rigidbody rb;
 
+    public ParticleSystem collisionParticle;
+
     private AudioSource ballAudio;
     public AudioClip crashSound;
 
@@ -38,6 +40,7 @@ public class BallController : MonoBehaviour
         if (isTravelling)
         {
             rb.velocity = speed * travelDirection;
+            collisionParticle.Play();
             
         }
         
@@ -49,6 +52,7 @@ public class BallController : MonoBehaviour
             GroundPiece ground = hitColliders[i].transform.GetComponent<GroundPiece>();
             if(ground && !ground.isColored)
             {
+                collisionParticle.Play();
                 ground.ChangeColor(solveColor);
             }
             i++;

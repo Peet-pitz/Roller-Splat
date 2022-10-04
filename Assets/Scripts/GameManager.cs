@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public float startDelay = 5.0f;
     private AudioSource gameAudio;
     public AudioClip gameOver;
     public static GameManager singleton;
@@ -66,14 +67,15 @@ public class GameManager : MonoBehaviour
 
         if (isFinished)
         {
+            Debug.Log("Game over music and particle");
             gameAudio.Play();
-            NextLevel(3);
+            NextLevel(startDelay);
         }
     }
 
-    private void NextLevel(int startdelay)
+    private void NextLevel(float startdelay)
     {
-        if(SceneManager.GetActiveScene().buildIndex == 1)
+        if(SceneManager.GetActiveScene().buildIndex == 4)
         {
             SceneManager.LoadScene(0);
         }
