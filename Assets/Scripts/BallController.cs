@@ -6,6 +6,9 @@ public class BallController : MonoBehaviour
 {
     public Rigidbody rb;
 
+    private AudioSource ballAudio;
+    public AudioClip crashSound;
+
     public int minSwipeRecognition = 500;
     public float speed = 15;
 
@@ -23,6 +26,7 @@ public class BallController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ballAudio = GetComponent<AudioSource>();
         solveColor = Random.ColorHSV(0.5f, 1);
         GetComponent<MeshRenderer>().material.color = solveColor;
     }
@@ -34,7 +38,9 @@ public class BallController : MonoBehaviour
         if (isTravelling)
         {
             rb.velocity = speed * travelDirection;
+            
         }
+        
 
         Collider[] hitColliders = Physics.OverlapSphere(transform.position - (Vector3.up / 2), 0.05f);
         int i = 0;
@@ -55,6 +61,7 @@ public class BallController : MonoBehaviour
                 isTravelling = false;
                 travelDirection = Vector3.zero;
                 nextCollisionPosition = Vector3.zero;
+                ballAudio.PlayOneShot(crashSound, 1.0f);
             }
             
         }

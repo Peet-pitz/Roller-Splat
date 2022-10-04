@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
+    private AudioSource gameAudio;
+    public AudioClip gameOver;
     public static GameManager singleton;
 
     private GroundPiece[] allGroundPieces;
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameAudio = GetComponent<AudioSource>();
         SetupNewLevel();
     }
 
@@ -64,11 +66,12 @@ public class GameManager : MonoBehaviour
 
         if (isFinished)
         {
-            NextLevel();
+            gameAudio.Play();
+            NextLevel(3);
         }
     }
 
-    private void NextLevel()
+    private void NextLevel(int startdelay)
     {
         if(SceneManager.GetActiveScene().buildIndex == 1)
         {
